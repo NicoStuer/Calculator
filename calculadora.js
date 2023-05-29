@@ -80,7 +80,7 @@ function operatorDesign(a, operator, b) {
     case "/":
       return split(a, b);
     default:
-      throw new Error("Operador inválido: " + operador);
+      throw new Error("Invalid operator: " + operator);
   }
 }
 
