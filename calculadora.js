@@ -16,22 +16,20 @@ const targetButtons = (e) => {
   if (regexNum.test(e.target.value)) {
     let num = e.target.value;
     currentResult.value += num;
-    console.log(numArr);
   }
   if (signsArr.find((el) => el === e.target.value)) {
     let currentResultValue = currentResult.value;
     let currentResultLastIndex = currentResultValue.charAt(
       currentResultValue.length - 1
     );
-    if(regexMarks.test(currentResultLastIndex)){
-      return
+    console.log(currentResultLastIndex);
+    if (regexMarks.test(currentResultLastIndex)) {
+      return;
     }
     calcConsole.style.display = "none";
     currentResult.value += e.target.value;
     console.log(currentResult.value);
-    
 
-    console.log(currentResultLastIndex);
     if (currentResult.value.length > 15) {
       const textLength = currentResult.value.length;
       const fontSize = 40 - textLength;
@@ -46,11 +44,11 @@ const targetButtons = (e) => {
     }
     calcConsole.style.display = "block";
 
-    let resultado = operar(numArr, operatorDesign);
+    let res = operate(numArr, operatorDesign);
 
-    calcConsole.value = resultado;
+    calcConsole.value = res;
     numArr = [];
-    numArr.push(resultado);
+    numArr.push(res);
   }
   if (e.target.value == "C") {
     numArr = [];
@@ -60,44 +58,44 @@ const targetButtons = (e) => {
   e.stopPropagation();
 };
 
-function operar(arr, operation) {
-  let resultado = Number(arr[0]);
+function operate(arr, operation) {
+  let res = Number(arr[0]);
   for (let i = 1; i < arr.length; i += 2) {
     let operador = arr[i];
-    let numero = Number(arr[i + 1]);
+    let secondNum = Number(arr[i + 1]);
 
-    resultado = operation(resultado, operador, numero);
+    res = operation(res, operador, secondNum);
   }
-  return resultado;
+  return res;
 }
 
-function operatorDesign(a, operador, b) {
-  switch (operador) {
+function operatorDesign(a, operator, b) {
+  switch (operator) {
     case "+":
-      return sumar(a, b);
+      return add(a, b);
     case "-":
-      return restar(a, b);
+      return substract(a, b);
     case "*":
-      return multiplicar(a, b);
+      return multiply(a, b);
     case "/":
-      return dividir(a, b);
+      return split(a, b);
     default:
       throw new Error("Operador inválido: " + operador);
   }
 }
 
-function sumar(a, b) {
+function add(a, b) {
   return a + b;
 }
 
-function restar(a, b) {
+function substract(a, b) {
   return a - b;
 }
 
-function multiplicar(a, b) {
+function multiply(a, b) {
   return a * b;
 }
 
-function dividir(a, b) {
+function split(a, b) {
   return a / b;
 }
